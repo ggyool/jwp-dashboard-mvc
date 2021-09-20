@@ -26,7 +26,7 @@ public class JsonConverter {
     public String convert(Object object) {
         try {
             if (object instanceof Map) {
-                Map map = objectMapper.convertValue(object, Map.class);
+                Map<?, ?> map = (Map<?, ?>) object;
                 return convertFromMap(map);
             }
             return objectMapper.writeValueAsString(object);
@@ -35,7 +35,7 @@ public class JsonConverter {
         }
     }
 
-    public String convertFromMap(Map map) throws JsonProcessingException {
+    public String convertFromMap(Map<?, ?> map) throws JsonProcessingException {
         if (map.size() == 1) {
             Object singleValue = map.values().iterator().next();
             return objectMapper.writeValueAsString(singleValue);
